@@ -1,0 +1,5 @@
+to create an application:
+1. create a .env file, put the variables PORT, APIKEY, APISECRET
+1. comment out the import of config.json and application.json and put null in those variables
+2. create the request, POST create application, only need the application name {"name":"yourAppName"} in the body, but can input capabilities too
+3. once successfull, uncomment the imports of config and application.json

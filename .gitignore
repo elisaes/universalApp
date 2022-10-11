@@ -1,0 +1,5 @@
+/.env
+/node_modules
+application.json
+config.json
+tunnelUrl.json
