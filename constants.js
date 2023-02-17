@@ -1,3 +1,4 @@
+let npe = null
 const HTTP_METHODS = {
   GET: "GET",
   POST: "POST",
@@ -7,13 +8,15 @@ const HTTP_METHODS = {
 
 const APP_URL = (id = undefined, baseURL = undefined) => {
   let domain = "api.nexmo.com"
-  if (baseURL) {
-    domain = baseURL
+  let createAppDomain = `https://${domain}/v2/applications`
+  if (npe) {
+    domain = `${npe}-api.npe.nexmo.io`
+    createAppDomain = `http://core1.${npe}.npe:8280/beta/account/applications`
   }
   return {
-    createAppUrl: `https://${domain}/v2/applications`,
+    createAppUrl: createAppDomain,
     updateAppUrl: `https://${domain}/v2/applications/${id}`,
-    createUserUrl: `https://${domain}/v0.1/users`,
+    createUserUrl: `crd:type:unknown`,
     createConversationUrl: `https://${domain}/v0.1/conversations`,
     getUsersUrl: `https://${domain}/v0.2/users`,
     listConversationsUrl:`https://${domain}/v0.2/conversations`,

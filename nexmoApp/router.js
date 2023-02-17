@@ -2,23 +2,18 @@ const router = require("express").Router();
 const { createNewApplication, updateApplication } = require("./src");
 const fs = require("fs");
 const { generateToken } = require("../utils/token");
-const application = require("../application.json");
 const appUrl = require("../constants");
 const callingNexmo = require("../utils/callingNexmo");
-let NPE;
-let baseURL;
+const application = null//require("../application.json");
 
 //APPLICATION
 router.post("/create", async (req, res) => {
   try {
     const { status, data } = await createNewApplication(req.body);
     fs.writeFileSync("application.json", JSON.stringify(data));
-    if (NPE) {
-      baseURL = `${process.env.REACT_APP_NPE_NAME}-api.npe.nexmo.io`
-    }
     res.status(status).send(data);
   } catch (e) {
-    console.log(e.response);
+    console.log(e, "error router create");
     throw e;
   }
 });

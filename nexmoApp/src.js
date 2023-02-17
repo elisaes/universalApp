@@ -3,7 +3,7 @@ const fs = require("fs");
 const constants = require("../constants");
 const tunnelUrl = require("../tunnelUrl.json");
 const model = require("./model");
-const savedData = require("../config.json");
+const savedData = null//require("../config.json");
 
 const sanitizeInput = (capabilitiesOptions) => {
   const capArr = [];
