@@ -1,15 +1,19 @@
-const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
+
+const express = require("express");
 const fs = require("fs");
 const ngrok = require('ngrok');
 const cors = require("cors");
-const config = null//require("./application.json");
+const config = require("./application.json");
 const callingNexmo = require("./utils/callingNexmo");
 const http_method = require("./constants");
 const NexmoData = require("./utils/NexmoData")
 
 
-dotenv.config();
+
+console.log(process.env.NPE_NAME)
+console.log(process.env.APP_ENVIRONMENT)
 
 //nexmoApplication
 const app = express();
@@ -23,8 +27,9 @@ app.use("/webhooks", require("./webhooks/router"));
 
 
 
-const updateApplication = async (tunnelUrl) => {
+const updateTunnelUrlForApplication = async (tunnelUrl) => {
   try {
+    console.log("Updating tunnel Url for application")
    const nexmoData = NexmoData(config.name, tunnelUrl)
       const {data, status} = await callingNexmo(nexmoData.headers, nexmoData.data, http_method.HTTP_METHODS.PUT, http_method.APP_URL(config.id).updateAppUrl)
     fs.writeFileSync("config.json", JSON.stringify(data))
@@ -41,13 +46,12 @@ const tunnelUrlCall = async () => {
     console.log("called")
     const tunnelUrl = await ngrok.connect(process.env.PORT);
     if(config){
-      await updateApplication(tunnelUrl)
+     await updateTunnelUrlForApplication(tunnelUrl)
     }
     fs.writeFileSync("tunnelUrl.json", JSON.stringify(tunnelUrl));
     console.log(tunnelUrl, "tunnel url================")
 
   } catch (e) {
-    console.log(e)
     throw (e)
   }
 

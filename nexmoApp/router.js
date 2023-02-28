@@ -4,7 +4,7 @@ const fs = require("fs");
 const { generateToken } = require("../utils/token");
 const appUrl = require("../constants");
 const callingNexmo = require("../utils/callingNexmo");
-const application = null//require("../application.json");
+const application = require("../application.json");
 
 //APPLICATION
 router.post("/create", async (req, res) => {
@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
     fs.writeFileSync("application.json", JSON.stringify(data));
     res.status(status).send(data);
   } catch (e) {
-    console.log(e, "error router create");
+    console.log ("error router create");
     throw e;
   }
 });
@@ -25,7 +25,6 @@ router.post("/update", async (req, res) => {
     console.log(status, data, "status,data");
     res.status(status).send(data);
   } catch (e) {
-    console.log(e.response);
     throw e;
   }
 });
