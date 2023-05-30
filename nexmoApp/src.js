@@ -39,28 +39,28 @@ const createNewApplication = async (body) => {
     );
     console.log(nexmoData, 'nexmoData')
 
-    if (process.env.APP_ENVIRONMENT == "NPE") {
-      nexmoData.body = {
-        "api_key": "qa_1999e8bbAUTO",
-        "api_secret": "qa_1999e8bbAUTO",
-        "name": "test_nvm",
-        "type": "voice",
-        "answer_url": "https://static.dev.nexmoinc.net/svc/ncco/ncco/auto_ncco_connect.php?destination=441234818238",
-        "event_url": "https://static.dev.nexmoinc.net/svc/ncco/ncco/auto_ncco_connect.php?destination=441234818238",
-        "security": {
-          "token-expiration-time-millisecs": "300000",
-          "request-signing": {
-            "secret": "123456",
-            "signature-method": "hmac-md5",
-            "mandatory-signature": "true"
-          },
-          "auth": {
-            "public-key": "123456",
-            "signature-method": "hmac-sha256"
-          }
-        }
-      }
-    }
+    // if (process.env.APP_ENVIRONMENT == "NPE") {
+    //   nexmoData.body = {
+    //     "api_key": "qa_1999e8bbAUTO",
+    //     "api_secret": "qa_1999e8bbAUTO",
+    //     "name": "test_nvm",
+    //     "type": "voice",
+    //     "answer_url": "https://static.dev.nexmoinc.net/svc/ncco/ncco/auto_ncco_connect.php?destination=441234818238",
+    //     "event_url": "https://static.dev.nexmoinc.net/svc/ncco/ncco/auto_ncco_connect.php?destination=441234818238",
+    //     "security": {
+    //       "token-expiration-time-millisecs": "300000",
+    //       "request-signing": {
+    //         "secret": "123456",
+    //         "signature-method": "hmac-md5",
+    //         "mandatory-signature": "true"
+    //       },
+    //       "auth": {
+    //         "public-key": "123456",
+    //         "signature-method": "hmac-sha256"
+    //       }
+    //     }
+    //   }
+    // }
 
     const res = await callingNexmo(
       nexmoData.headers,
@@ -79,6 +79,7 @@ const createNewApplication = async (body) => {
 
     return res;
   } catch (e) {
+    console.log(e)
     throw e;
   }
 };

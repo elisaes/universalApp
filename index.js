@@ -3,7 +3,7 @@ dotenv.config();
 
 const express = require("express");
 const fs = require("fs");
-const ngrok = require('ngrok');
+const tunnel = require('localtunnel');
 const cors = require("cors");
 const config = require("./application.json");
 const callingNexmo = require("./utils/callingNexmo");
@@ -43,8 +43,10 @@ const updateTunnelUrlForApplication = async (tunnelUrl) => {
 
 const tunnelUrlCall = async () => {
   try {
-    console.log("called")
-    const tunnelUrl = await ngrok.connect(process.env.PORT);
+    const localtunnel = await tunnel({ port: process.env.PORT });
+    const tunnelUrl = localtunnel.url
+    console.log(tunnelUrl, "tunnel URL")
+ 
     if(config){
      await updateTunnelUrlForApplication(tunnelUrl)
     }

@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
     fs.writeFileSync("application.json", JSON.stringify(data));
     res.status(status).send(data);
   } catch (e) {
-    console.log ("error router create");
+    res.send(e)
     throw e;
   }
 });
